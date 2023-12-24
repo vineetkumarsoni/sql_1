@@ -181,7 +181,247 @@ select * from bank_details order by balance  desc
 select housing,balance  from bank_details where housing='no'
 
 
-SELECT  * FROM bank_details WHERE balance <0
+SELECT  * FROM bank_details WHERE balance<0
+
+
+
+
+@@##$%%$$#@ how to define fuctions in sql
+
+DELIMITER &&
+create Procedure vini()
+BEGIN
+   select * from bank_details;
+END &&
+
+call vini()
+
+
+DELIMITER &&
+   create Procedure bal_max()
+   BEGIN
+    select * from bank_details where balance in (select max(balance) from bank_details);
+END &&
+
+call bal_max()
+
+
+
+DELIMITER &&
+  create Procedure avg_balfordifjobroles(in role varchar(30))
+  BEGIN
+   select avg(balance) from bank_details where job = role;
+END &&
+
+call avg_balfordifjobroles('admin.')
+
+call avg_balfordifjobroles('retired')
+
+call avg_balfordifjobroles('self-employed')
+
+
+call avg_balfordifjobroles('entrepreneur')
+
+
+
+
+DELIMITER &&
+  create Procedure sel_edu_job(in v1 varchar(30), in v2 varchar(30))
+  BEGIN
+   select * from bank_details where education = v1 and job =v2;
+END &&
+
+call sel_edu_job('tertiary' , 'retired')
+
+
+call sel_edu_job('tertiary' , 'admin.')
+
+
+
+DELIMITER &&
+  create Procedure sel_marital_loan(in v1 varchar(30), in v2 varchar(30))
+  BEGIN
+   select * from bank_details where marital = v1 and loan =v2;
+END &&
+
+call sel_marital_loan( 'married','yes')
+
+call sel_marital_loan( 'single','yes')
+
+
+call sel_marital_loan( 'married','no')
+
+
+
+create view bank_view  as select age,marital,balance, education ,job from bank_details
+
+
+select avg(balance) from bank_view 
+
+select avg(balance) from bank_view where job = "admin."
+
+
+!@@%$#%#%#%#%#%@%%$%$@%$!%&^*&(^#%#%@@ CASE condition 
+
+SELECT age,balance,job,
+        CASE
+             WHEN job IN ('admin.','management') THEN 'high table '
+             WHEN job IN ('blue-collar','technician') THEN 'low table'
+             ELSE 'employee'
+         END AS role_Type,
+         
+         education,marital
+         
+FROM bank_details;
+
+
+SELECT age, balance, job,
+       CASE 
+           WHEN job IN ('admin.', 'management') THEN 'high table'
+           WHEN job IN ('blue-collar', 'technician') THEN 'low table'
+           ELSE 'employee'
+       END AS role_Type,
+       education, marital
+FROM bank_details;
+
+
+
+SELECT 
+    *,
+    CASE
+        WHEN job IN ('management', 'admin.') THEN 'high_table'
+        WHEN job IN ('retired', 'unknown') THEN 'no_table'
+        ELSE 'low_table'
+    END AS role_type
+FROM 
+    bank_details;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
